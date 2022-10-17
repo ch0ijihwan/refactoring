@@ -1,4 +1,4 @@
-package refactor.calculator;
+package refactor.model.domain.calculator;
 
 public interface Calculation {
 
