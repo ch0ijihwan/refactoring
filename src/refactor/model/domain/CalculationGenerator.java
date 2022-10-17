@@ -17,7 +17,7 @@ public class CalculationGenerator {
         CALCULATIONS.put(Symbol.DIVISION, new Division());
     }
 
-    public static Calculation CalculationGeneratorBySymbol(Symbol symbol) {
+    public static Calculation getCalculationBy(Symbol symbol) {
         return CALCULATIONS.get(symbol);
     }
 
