@@ -4,5 +4,5 @@ import refactor.view.DisplayMode;
 
 public interface Output {
 
-    void display(DisplayMode displayMode, Integer result);
+    void display(final DisplayMode displayMode, final Integer result);
 }

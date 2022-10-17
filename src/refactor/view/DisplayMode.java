@@ -3,7 +3,7 @@ package refactor.view;
 import java.util.Arrays;
 
 public enum DisplayMode {
-    
+
     WON_TO_DECIMAL(0),
     WON_TO_BINARY(1),
     WON_TO_HEX(2),
@@ -13,11 +13,11 @@ public enum DisplayMode {
 
     private final int value;
 
-    DisplayMode(int value) {
+    DisplayMode(final int value) {
         this.value = value;
     }
 
-    public static DisplayMode valueOf(int modeNumber) {
+    public static DisplayMode valueOf(final int modeNumber) {
         return Arrays.stream(DisplayMode.values())
                 .filter(mode -> mode.value == modeNumber)
                 .findFirst()

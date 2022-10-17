@@ -16,7 +16,7 @@ public class ExchangeMachineGenerator {
         EXCHANGING_MACHINE_MAP.put(ExchangeType.TO_DOLLAR, new ExchangeToDollar());
     }
 
-    public static MoneyExchangingMachine getMoneyExchangingMachineBy(ExchangeType exchangeType) {
+    public static MoneyExchangingMachine getMoneyExchangingMachineBy(final ExchangeType exchangeType) {
         return EXCHANGING_MACHINE_MAP.get(exchangeType);
     }
 
