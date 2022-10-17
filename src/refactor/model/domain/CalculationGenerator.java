@@ -1,6 +1,7 @@
-package refactor;
+package refactor.model.domain;
 
-import refactor.calculator.*;
+import refactor.Symbol;
+import refactor.model.domain.calculator.*;
 
 import java.util.EnumMap;
 import java.util.Map;
