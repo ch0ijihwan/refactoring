@@ -5,7 +5,7 @@ import refactor.view.DisplayMode;
 public class ConsoleOutput implements Output {
 
     @Override
-    public void display(DisplayMode displayMode, Integer result) {
+    public void display(final DisplayMode displayMode, final Integer result) {
         if (displayMode == DisplayMode.WON_TO_DECIMAL || displayMode == DisplayMode.WON_TO_DOLLAR_TO_DECIMAL) {
             System.out.println(result);
         }

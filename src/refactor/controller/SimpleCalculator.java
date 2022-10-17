@@ -16,7 +16,7 @@ import static refactor.view.DisplayMode.WON_TO_DOLLAR_TO_HEX;
 
 public class SimpleCalculator {
 
-    public void run(Input input, Output output) {
+    public void run(final Input input, final Output output) {
         String expression = input.inputExpression();
         DisplayMode displayMode = input.inputDisplayMode();
 
@@ -28,22 +28,21 @@ public class SimpleCalculator {
         Integer result = calculate(symbol, firstNumber, secondNumber);
         Integer exchangedResult = exchangeByDisplayMode(result, displayMode);
         output.display(displayMode, exchangedResult);
-
     }
 
-    private Integer exchangeByDisplayMode(Integer result, DisplayMode displayMode) {
+    private Integer calculate(final Symbol symbol, final Integer firstNumber, final Integer secondNumber) {
+        Calculation calculation = CalculationGenerator.getCalculationBy(symbol);
+        return calculation.calculate(firstNumber, secondNumber);
+    }
+
+    private Integer exchangeByDisplayMode(final Integer result, final DisplayMode displayMode) {
         MoneyExchangingMachine moneyExchangingMachine;
         ExchangeType exchangeType = getExchangeType(displayMode);
         moneyExchangingMachine = ExchangeMachineGenerator.getMoneyExchangingMachineBy(exchangeType);
         return moneyExchangingMachine.exchange(result);
     }
 
-    private Integer calculate(Symbol symbol, Integer firstNumber, Integer secondNumber) {
-        Calculation calculation = CalculationGenerator.getCalculationBy(symbol);
-        return calculation.calculate(firstNumber, secondNumber);
-    }
-
-    public ExchangeType getExchangeType(DisplayMode displayMode) {
+    public ExchangeType getExchangeType(final DisplayMode displayMode) {
         if (displayMode == DisplayMode.WON_TO_DECIMAL || displayMode == DisplayMode.WON_TO_BINARY || displayMode == DisplayMode.WON_TO_HEX) {
             return ExchangeType.TO_WON;
         }
