@@ -1,52 +1,55 @@
 package refactor.controller;
 
-import refactor.MoneyChangingMachine;
 import refactor.Symbol;
 import refactor.model.domain.CalculationGenerator;
 import refactor.model.domain.ExpressionSplitter;
 import refactor.model.domain.calculator.Calculation;
+import refactor.model.domain.exchanging.MoneyExchangingMachine;
+import refactor.model.domain.exchanging.generator.ExchangeMachineGenerator;
+import refactor.model.domain.exchanging.generator.ExchangeType;
+import refactor.view.DisplayMode;
+import refactor.view.input.Input;
+import refactor.view.output.Output;
 
-import java.util.Scanner;
+import static refactor.view.DisplayMode.WON_TO_DOLLAR_TO_BINARY;
+import static refactor.view.DisplayMode.WON_TO_DOLLAR_TO_HEX;
 
 public class SimpleCalculator {
 
-    public static final Scanner SCANNER = new Scanner(System.in);
+    public void run(Input input, Output output) {
+        String expression = input.inputExpression();
+        DisplayMode displayMode = input.inputDisplayMode();
 
-    public static void main(String[] args) {
-        String input = SCANNER.nextLine();
-        ExpressionSplitter expressionSplitter = new ExpressionSplitter(input);
-
+        ExpressionSplitter expressionSplitter = new ExpressionSplitter(expression);
         Symbol symbol = expressionSplitter.getSymbol();
         Integer firstNumber = expressionSplitter.getFirstNumber();
         Integer secondNumber = expressionSplitter.getSecondNumber();
 
-        Calculation calculation = CalculationGenerator.CalculationGeneratorBySymbol(symbol);
-        Integer result = calculation.calculate(firstNumber, secondNumber);
+        Integer result = calculate(symbol, firstNumber, secondNumber);
+        Integer exchangedResult = exchangeByDisplayMode(result, displayMode);
+        output.display(displayMode, exchangedResult);
 
-        MoneyChangingMachine moneyChangingMachine = new MoneyChangingMachine();
+    }
 
-        int displayMode = 0;
-        switch (displayMode) {
-            case 0:
-                System.out.print(moneyChangingMachine.exchangeWonToDecimal(result));
-                break;
-            case 1:
-                System.out.print(moneyChangingMachine.exchangeWonToBinary(result));
-                break;
-            case 2:
-                System.out.print(moneyChangingMachine.exchangeWonToHex(result));
-                break;
-            case 3:
-                System.out.print(moneyChangingMachine.exchangeWonToDollarToDecimal(result));
-                break;
-            case 4:
-                System.out.print(moneyChangingMachine.exchangeWonToDollarToBinary(result));
-                break;
-            case 5:
-                System.out.print(moneyChangingMachine.exchangeWonToDollarToHex(result));
-                break;
+    private Integer exchangeByDisplayMode(Integer result, DisplayMode displayMode) {
+        MoneyExchangingMachine moneyExchangingMachine;
+        ExchangeType exchangeType = getExchangeType(displayMode);
+        moneyExchangingMachine = ExchangeMachineGenerator.getMoneyExchangingMachineBy(exchangeType);
+        return moneyExchangingMachine.exchange(result);
+    }
+
+    private Integer calculate(Symbol symbol, Integer firstNumber, Integer secondNumber) {
+        Calculation calculation = CalculationGenerator.getCalculationBy(symbol);
+        return calculation.calculate(firstNumber, secondNumber);
+    }
+
+    public ExchangeType getExchangeType(DisplayMode displayMode) {
+        if (displayMode == DisplayMode.WON_TO_DECIMAL || displayMode == DisplayMode.WON_TO_BINARY || displayMode == DisplayMode.WON_TO_HEX) {
+            return ExchangeType.TO_WON;
         }
-
-        SCANNER.close();
+        if (displayMode == DisplayMode.WON_TO_DOLLAR_TO_DECIMAL || displayMode == WON_TO_DOLLAR_TO_BINARY || displayMode == WON_TO_DOLLAR_TO_HEX) {
+            return ExchangeType.TO_DOLLAR;
+        }
+        throw new IllegalStateException("잘못된 접근 입니다.");
     }
 }
