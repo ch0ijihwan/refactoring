@@ -1,4 +1,4 @@
-package refactor;
+package refactor.model.domain;
 
 public enum Symbol   {
     PLUS("+"),

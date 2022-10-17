@@ -1,6 +1,6 @@
 package refactor.controller;
 
-import refactor.Symbol;
+import refactor.model.domain.Symbol;
 import refactor.model.domain.CalculationGenerator;
 import refactor.model.domain.ExpressionSplitter;
 import refactor.model.domain.calculator.Calculation;

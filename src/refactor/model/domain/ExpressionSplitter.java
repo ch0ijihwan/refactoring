@@ -1,7 +1,5 @@
 package refactor.model.domain;
 
-import refactor.Symbol;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

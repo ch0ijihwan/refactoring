@@ -1,6 +1,5 @@
 package refactor.model.domain;
 
-import refactor.Symbol;
 import refactor.model.domain.calculator.*;
 
 import java.util.EnumMap;
