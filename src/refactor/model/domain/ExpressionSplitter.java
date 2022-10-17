@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class ExpressionSplitter {
 
     private static final int FIRST_NUMBER_INDEX = 0;
+    private static final int FIRST_INDEX = 0;
     private static final int SECOND_NUMBER_INDEX = 1;
     private static final String BLANK = " ";
     private static final String DELIMITER = "";
@@ -40,7 +41,7 @@ public class ExpressionSplitter {
     private List<Integer> findNumbers(final String expression, final Symbol symbol) {
         List<Integer> numbers = new ArrayList<>();
         int symbolIndex = expression.indexOf(symbol.getValue());
-        numbers.add(Integer.parseInt(expression.substring(0, symbolIndex)));
+        numbers.add(Integer.parseInt(expression.substring(FIRST_INDEX, symbolIndex)));
         numbers.add(Integer.parseInt(expression.substring(symbolIndex + 1)));
         return numbers;
     }
